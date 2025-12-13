@@ -45,6 +45,16 @@ npm run generate
 
 Generated HTML files will be in `dist/posts/YYYY/MM/DD/slug/index.html`
 
+### Local Preview
+
+To preview the generated blog locally:
+
+```bash
+npm run preview
+```
+
+This starts a local server at http://localhost:3000 to view your blog.
+
 ## Post Format
 
 Each post must be a Markdown file with YAML frontmatter:
@@ -112,6 +122,7 @@ blog/
 
 - `npm run build` - Compile TypeScript to JavaScript
 - `npm run generate` - Build and generate the blog
+- `npm run preview` - Start local preview server at http://localhost:3000
 
 ## Output
 
