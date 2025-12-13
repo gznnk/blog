@@ -7,7 +7,8 @@
     "blog-generate": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy-templates",
+    "copy-templates": "node -e \"require('fs').cpSync('src/templates', 'dist/templates', {recursive: true})\"",
     "generate": "npm run build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,10 +17,12 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^25.0.1",
+    "@types/nunjucks": "^3.2.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "marked": "^17.0.1"
+    "marked": "^17.0.1",
+    "nunjucks": "^3.2.4"
   }
 }
