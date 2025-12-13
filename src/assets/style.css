@@ -46,6 +46,16 @@ header h1 {
     color: var(--color-text);
 }
 
+header h1 a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+header h1 a:hover {
+    color: var(--color-accent);
+}
+
 nav {
     max-width: 900px;
     margin: 0 auto;
@@ -265,10 +275,10 @@ code[class*="language-"] {
 footer {
     background-color: var(--color-bg-secondary);
     border-top: 1px solid var(--color-border);
-    padding: 2rem;
+    padding: 1rem;
     text-align: center;
     color: var(--color-text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 /* Responsive Design */
