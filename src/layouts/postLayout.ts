@@ -1,6 +1,8 @@
-import { PostFrontmatter } from './validator';
+import { PostFrontmatter } from '../validator';
+import { escapeHtml } from '../utils/escapeHtml';
+import { formatDate } from '../utils/formatDate';
 
-export function generateLayout(
+export function generatePostLayout(
   frontmatter: PostFrontmatter,
   contentHtml: string
 ): string {
@@ -36,24 +38,4 @@ export function generateLayout(
     </footer>
 </body>
 </html>`;
-}
-
-function escapeHtml(text: string): string {
-  const map: { [key: string]: string } = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;'
-  };
-  return text.replace(/[&<>"']/g, (m) => map[m]);
-}
-
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
 }
