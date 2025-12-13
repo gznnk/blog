@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import * as path from 'path';
+import * as fs from 'fs';
 import { generateBlog } from './generator';
 
 async function main() {
@@ -11,6 +12,11 @@ async function main() {
   console.log(`Output directory: ${outputDir}`);
 
   const result = await generateBlog(contentDir, outputDir);
+
+  // Create .nojekyll file to disable Jekyll processing on GitHub Pages
+  const nojekyllPath = path.join(outputDir, '.nojekyll');
+  fs.writeFileSync(nojekyllPath, '', 'utf-8');
+  console.log('Created .nojekyll file for GitHub Pages');
 
   console.log('\n=== Generation Complete ===');
   console.log(`Processed: ${result.processed}`);
