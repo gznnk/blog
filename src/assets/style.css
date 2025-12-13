@@ -6,15 +6,15 @@
 }
 
 :root {
-    --color-bg: #0d1117;
-    --color-bg-secondary: #161b22;
-    --color-bg-tertiary: #1f2937;
-    --color-text: #e6edf3;
-    --color-text-secondary: #8b949e;
-    --color-accent: #58a6ff;
-    --color-accent-hover: #1f6feb;
-    --color-border: #30363d;
-    --color-code-bg: #161b22;
+    --color-bg: #ffffff;
+    --color-bg-secondary: #f6f8fa;
+    --color-bg-tertiary: #eaeef2;
+    --color-text: #1f2328;
+    --color-text-secondary: #59636e;
+    --color-accent: #0969da;
+    --color-accent-hover: #0550ae;
+    --color-border: #d1d9e0;
+    --color-code-bg: #f6f8fa;
     --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
 }
@@ -163,7 +163,7 @@ code {
 
 p code, li code {
     background-color: var(--color-code-bg);
-    color: #ff7b72;
+    color: #cf222e;
     padding: 0.2em 0.4em;
     border-radius: 3px;
     border: 1px solid var(--color-border);
@@ -187,25 +187,26 @@ pre code {
     font-size: 0.9rem;
 }
 
-/* Prism.js Theme Override - GitHub Dark */
+/* Prism.js Theme Override - GitHub Light */
 pre[class*="language-"] {
     background-color: var(--color-code-bg);
     border: 1px solid var(--color-border);
 }
 
 code[class*="language-"] {
-    color: #e6edf3;
+    color: #1f2328;
 }
 
 .token.comment,
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: #8b949e;
+    color: #59636e;
+    font-style: italic;
 }
 
 .token.punctuation {
-    color: #e6edf3;
+    color: #1f2328;
 }
 
 .token.property,
@@ -215,7 +216,7 @@ code[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-    color: #79c0ff;
+    color: #0550ae;
 }
 
 .token.selector,
@@ -224,7 +225,7 @@ code[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-    color: #a5d6ff;
+    color: #0a3069;
 }
 
 .token.operator,
@@ -232,24 +233,24 @@ code[class*="language-"] {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-    color: #ff7b72;
+    color: #cf222e;
 }
 
 .token.atrule,
 .token.attr-value,
 .token.keyword {
-    color: #ff7b72;
+    color: #cf222e;
 }
 
 .token.function,
 .token.class-name {
-    color: #d2a8ff;
+    color: #8250df;
 }
 
 .token.regex,
 .token.important,
 .token.variable {
-    color: #ffa657;
+    color: #bc4c00;
 }
 
 /* Footer */
