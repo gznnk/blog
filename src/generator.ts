@@ -11,6 +11,16 @@ export interface GenerateResult {
   errors: { file: string; errors: string[] }[];
 }
 
+interface PostMetadata {
+  title: string;
+  date: string;
+  description: string;
+  tags?: string[];
+  filePath: string;
+  content: string;
+  frontmatter: PostFrontmatter;
+}
+
 export async function generateBlog(contentDir: string, outputDir: string): Promise<GenerateResult> {
   const result: GenerateResult = {
     processed: 0,
@@ -27,16 +37,25 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
   }
 
   const markdownFiles = findMarkdownFiles(postsDir);
+  const publicPosts: PostMetadata[] = [];
   
   for (const filePath of markdownFiles) {
     try {
-      await processPost(filePath, contentDir, outputDir, result);
+      const postMeta = await processPost(filePath, contentDir, outputDir, result);
+      if (postMeta) {
+        publicPosts.push(postMeta);
+      }
     } catch (error) {
       result.errors.push({
         file: filePath,
         errors: [error instanceof Error ? error.message : String(error)]
       });
     }
+  }
+
+  // Generate index.html with latest post
+  if (publicPosts.length > 0) {
+    generateIndexPage(publicPosts, outputDir);
   }
 
   return result;
@@ -68,7 +87,7 @@ async function processPost(
   contentDir: string,
   outputDir: string,
   result: GenerateResult
-): Promise<void> {
+): Promise<PostMetadata | null> {
   // Read and parse the markdown file
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   const { data: frontmatter, content } = matter(fileContent);
@@ -77,7 +96,7 @@ async function processPost(
   if (frontmatter.draft === true) {
     console.log(`Skipping draft: ${filePath}`);
     result.skipped++;
-    return;
+    return null;
   }
 
   // Normalize date to string format (gray-matter may parse it as Date object)
@@ -96,7 +115,7 @@ async function processPost(
       file: filePath,
       errors: validation.errors.map(e => `${e.field}: ${e.message}`)
     });
-    return;
+    return null;
   }
 
   // Convert markdown to HTML
@@ -126,4 +145,74 @@ async function processPost(
   
   console.log(`Generated: ${outputPath}`);
   result.processed++;
+
+  // Return metadata for index page generation
+  return {
+    title: frontmatter.title as string,
+    date: frontmatter.date as string,
+    description: frontmatter.description as string,
+    tags: frontmatter.tags as string[] | undefined,
+    filePath,
+    content,
+    frontmatter: frontmatter as PostFrontmatter
+  };
+}
+
+function generateIndexPage(posts: PostMetadata[], outputDir: string): void {
+  // Find the latest post (max date)
+  const latestPost = posts.reduce((latest, current) => {
+    return current.date > latest.date ? current : latest;
+  });
+
+  console.log(`Latest post: ${latestPost.title} (${latestPost.date})`);
+
+  // Generate HTML for the latest post content
+  const contentHtml = marked(latestPost.content) as string;
+
+  // Generate index.html
+  const html = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="${escapeHtml(latestPost.description)}">
+    <title>${escapeHtml(latestPost.title)}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h1>${escapeHtml(latestPost.title)}</h1>
+            <time datetime="${latestPost.date}">${latestPost.date}</time>
+            ${latestPost.tags && latestPost.tags.length > 0 ? `
+            <div class="tags">
+                ${latestPost.tags.map(tag => `<span class="tag">${escapeHtml(tag)}</span>`).join(' ')}
+            </div>` : ''}
+            ${contentHtml}
+        </article>
+    </main>
+    <footer>
+        <p>&copy; ${new Date().getFullYear()}</p>
+    </footer>
+</body>
+</html>`;
+
+  const indexPath = path.join(outputDir, 'index.html');
+  fs.writeFileSync(indexPath, html, 'utf-8');
+  console.log(`Generated: ${indexPath}`);
+}
+
+function escapeHtml(text: string): string {
+  const map: { [key: string]: string } = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, (m) => map[m]);
 }
