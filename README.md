@@ -1,5 +1,22 @@
-# blog
-Minimal static blog generator (Markdown → HTML) for GitHub Pages
+# blog-generator-reference
+A minimal **reference implementation** for building a static blog generator  
+using **Node.js, TypeScript, and Markdown**.
+
+This project is not a full-featured blog engine.
+Instead, it shows **one clear way** to build your own static blog generator
+step by step, and encourages you to extend it using AI tools.
+
+---
+
+## What this repository is
+
+- A **learning scaffold** for static blog generation
+- A **clean starting point** (no hidden magic, no excessive features)
+- A **template you are expected to modify**
+
+If you are looking for a complete blog solution, consider tools like
+Jekyll, Hugo, or Astro.
+If you want to **understand and own the implementation**, this repo is for you.
 
 ## Features
 
