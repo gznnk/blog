@@ -99,6 +99,9 @@ export async function generatePostHtml(
     siteName: config.siteName,
     basePath: config.basePath,
     author: config.author,
+    avatarUrl: config.avatarUrl,
+    bio: config.bio,
+    githubUrl: config.githubUrl,
     post: {
       title,
       description,

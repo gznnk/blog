@@ -3,7 +3,10 @@
   "siteDescription": "システム開発とか、その周辺で考えたこと",
   "siteDomain": "gznnk.github.io",
   "basePath": "/blog",
-  "author": "Your Name",
+  "author": "gznnk",
+  "avatarUrl": "https://github.com/gznnk.png",
+  "bio": "シニアエンジニア。２児の父親。情報や手段より、動くモノを作りたい。小さなSlerで泥臭くやってます。",
+  "githubUrl": "https://github.com/gznnk",
   "sidebarMaxItems": 50,
   "rssMaxItems": 30,
   "timezone": "Asia/Tokyo"

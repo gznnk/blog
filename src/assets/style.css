@@ -363,26 +363,94 @@ hr {
 
 /* Sidebar */
 .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Profile Section */
+.profile-section {
     background-color: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     border-radius: 8px;
     padding: 1.5rem;
-    height: fit-content;
-    position: sticky;
-    top: 80px;
+    text-align: center;
 }
 
-.sidebar h2 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1rem;
+    display: block;
+    border: 2px solid var(--color-border);
+}
+
+.profile-name {
+    font-size: 1.1rem;
+    font-weight: 600;
     color: var(--color-text);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.profile-bio {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.profile-links {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.profile-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    transition: all 0.2s;
+}
+
+.profile-link:hover {
+    background-color: var(--color-bg-tertiary);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.profile-link svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Posts Section */
+.sidebar > h2 {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+    margin: 0;
+    color: var(--color-text);
 }
 
 .post-list {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 1.5rem;
     list-style: none;
-    padding: 0;
     margin: 0;
 }
 

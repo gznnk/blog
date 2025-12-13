@@ -29,6 +29,9 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     siteName: config.siteName,
     basePath: config.basePath,
     author: config.author,
+    avatarUrl: config.avatarUrl,
+    bio: config.bio,
+    githubUrl: config.githubUrl,
     post: latestPost,
     content: contentHtml,
     posts: postList

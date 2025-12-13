@@ -7,6 +7,9 @@ export interface SiteConfig {
   siteDomain: string;
   basePath: string;
   author: string;
+  avatarUrl?: string;
+  bio?: string;
+  githubUrl?: string;
   sidebarMaxItems: number;
   rssMaxItems: number;
   timezone: string;
