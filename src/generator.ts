@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { findMarkdownFiles } from './utils/findMarkdownFiles';
-import { processPost, PostMetadata } from './generators/processPost';
+import { extractPostMetadata, generatePostHtml, PostMetadata } from './generators/processPost';
 import { generateIndexPage } from './generators/generateIndexPage';
 import { loadConfig } from './utils/loadConfig';
 import { SiteConfig } from './types/config';
@@ -37,7 +37,7 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
   // First pass: collect all post metadata without generating HTML
   for (const filePath of markdownFiles) {
     try {
-      const postMeta = await processPost(filePath, contentDir, outputDir, result, config);
+      const postMeta = extractPostMetadata(filePath, result);
       if (postMeta) {
         publicPosts.push(postMeta);
       }
@@ -49,16 +49,17 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
     }
   }
 
-  // Second pass: regenerate all posts with sidebar data
+  // Second pass: generate HTML for all posts with sidebar data
   if (publicPosts.length > 0) {
-    // Reset counters for second pass
-    result.processed = 0;
-
-    for (const filePath of markdownFiles) {
+    for (const post of publicPosts) {
       try {
-        await processPost(filePath, contentDir, outputDir, result, config, publicPosts);
+        await generatePostHtml(post, contentDir, outputDir, config, publicPosts);
+        result.processed++;
       } catch (error) {
-        // Errors already captured in first pass
+        result.errors.push({
+          file: post.filePath,
+          errors: [error instanceof Error ? error.message : String(error)]
+        });
       }
     }
 

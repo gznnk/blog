@@ -6,6 +6,7 @@ import { validatePost, PostFrontmatter } from '../validator';
 import { renderTemplate } from '../utils/templateEngine';
 import { formatDate } from '../utils/formatDate';
 import { SiteConfig } from '../types/config';
+import { generatePostList } from '../utils/postList';
 
 export interface PostMetadata {
   title: string;
@@ -23,14 +24,13 @@ export interface ProcessResult {
   errors: { file: string; errors: string[] }[];
 }
 
-export async function processPost(
+/**
+ * Extract metadata from a post file without generating HTML
+ */
+export function extractPostMetadata(
   filePath: string,
-  contentDir: string,
-  outputDir: string,
-  result: ProcessResult,
-  config: SiteConfig,
-  allPosts?: PostMetadata[]
-): Promise<PostMetadata | null> {
+  result: ProcessResult
+): PostMetadata | null {
   // Read and parse the markdown file
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   const { data: frontmatter, content } = matter(fileContent);
@@ -52,7 +52,7 @@ export async function processPost(
 
   // Validate the post
   const validation = validatePost(frontmatter, filePath);
-  
+
   if (!validation.valid) {
     result.errors.push({
       file: filePath,
@@ -61,33 +61,36 @@ export async function processPost(
     return null;
   }
 
+  // Return metadata without generating HTML
+  return {
+    title: frontmatter.title as string,
+    date: frontmatter.date as string,
+    description: frontmatter.description as string,
+    tags: frontmatter.tags as string[] | undefined,
+    filePath,
+    content,
+    frontmatter: frontmatter as PostFrontmatter
+  };
+}
+
+/**
+ * Generate HTML for a post
+ */
+export async function generatePostHtml(
+  post: PostMetadata,
+  contentDir: string,
+  outputDir: string,
+  config: SiteConfig,
+  allPosts: PostMetadata[]
+): Promise<void> {
   // Convert markdown to HTML
-  const contentHtml = await marked(content);
+  const contentHtml = await marked(post.content);
 
-  // Prepare post list for sidebar (if allPosts is provided)
-  let postList: any[] = [];
-  if (allPosts && allPosts.length > 0) {
-    // Sort posts by date descending and take top N items
-    const sortedPosts = [...allPosts].sort((a, b) => b.date.localeCompare(a.date));
-    const sidebarPosts = sortedPosts.slice(0, config.sidebarMaxItems);
-
-    // Generate post list with URLs for sidebar
-    postList = sidebarPosts.map(post => {
-      // Extract YYYY/MM/DD/slug from file path (handle both \ and / separators)
-      const normalizedPath = post.filePath.replace(/\\/g, '/');
-      const match = normalizedPath.match(/(\d{4})\/(\d{2})\/(\d{2})\/([^/]+)\.md$/);
-      if (!match) return null;
-      const [, year, month, day, slug] = match;
-      return {
-        title: post.title,
-        date: post.date,
-        url: `${year}/${month}/${day}/${slug}/`
-      };
-    }).filter(Boolean);
-  }
+  // Prepare post list for sidebar
+  const postList = generatePostList(allPosts, config);
 
   // Generate full HTML with template
-  const { title, description, date, tags } = frontmatter as PostFrontmatter;
+  const { title, description, date, tags } = post;
   const html = renderTemplate('post.njk', {
     title: `${title} - ${config.siteName}`,
     description,
@@ -100,7 +103,7 @@ export async function processPost(
       title,
       description,
       date,
-      formattedDate: formatDate(date as string),
+      formattedDate: formatDate(date),
       tags
     },
     content: contentHtml,
@@ -110,7 +113,7 @@ export async function processPost(
   // Extract output path from input path
   // Input: content/posts/YYYY/MM/DD/slug.md
   // Output: dist/posts/YYYY/MM/DD/slug/index.html
-  const relativePath = path.relative(path.join(contentDir, 'posts'), filePath);
+  const relativePath = path.relative(path.join(contentDir, 'posts'), post.filePath);
   const parsedPath = path.parse(relativePath);
   const outputPath = path.join(
     outputDir,
@@ -125,18 +128,6 @@ export async function processPost(
 
   // Write the HTML file
   fs.writeFileSync(outputPath, html, 'utf-8');
-  
-  console.log(`Generated: ${outputPath}`);
-  result.processed++;
 
-  // Return metadata for index page generation
-  return {
-    title: frontmatter.title as string,
-    date: frontmatter.date as string,
-    description: frontmatter.description as string,
-    tags: frontmatter.tags as string[] | undefined,
-    filePath,
-    content,
-    frontmatter: frontmatter as PostFrontmatter
-  };
+  console.log(`Generated: ${outputPath}`);
 }
