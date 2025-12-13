@@ -23,6 +23,7 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     lang: 'ja',
     currentYear: new Date().getFullYear(),
     siteName: config.siteName,
+    basePath: config.basePath,
     author: config.author,
     post: latestPost,
     content: contentHtml

@@ -23,6 +23,7 @@ export function loadConfig(): SiteConfig {
     "siteName",
     "siteDescription",
     "siteDomain",
+    "basePath",
     "author",
     "sidebarMaxItems",
     "rssMaxItems",

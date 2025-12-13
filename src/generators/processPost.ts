@@ -71,6 +71,7 @@ export async function processPost(
     lang: 'ja',
     currentYear: new Date().getFullYear(),
     siteName: config.siteName,
+    basePath: config.basePath,
     author: config.author,
     post: {
       title,
