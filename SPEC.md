@@ -98,6 +98,10 @@ draft: false
 - Markdown本文を HTML に変換する。
 - 変換後は `<article>` 内に埋め込む（layoutに差し込む）。
 - 見出し・リスト・コードブロック・リンク程度の基本は対応する。
+- **シンタックスハイライト**：Prism.js を使用してコードブロックをハイライト表示する。
+  - 対応言語：TypeScript, JavaScript, Python, Bash, JSON（必要に応じて追加可能）
+  - テーマ：Prism Tomorrow（GitHub Dark風）
+  - Markdown内のコードブロックに言語指定（\`\`\`typescript など）があれば、自動で `class="language-xxx"` を付与
 
 出力の骨格：
 ```html
@@ -109,6 +113,7 @@ draft: false
   </div>
   <div class="post-body">
     <!-- converted HTML -->
+    <!-- コードブロック例: <pre><code class="language-typescript">...</code></pre> -->
   </div>
 </article>
 ```
@@ -120,6 +125,12 @@ draft: false
 - `<header>`: サイト名（仮）/ナビ（最小）
 - `<main>`: コンテンツ
 - `<footer>`: 著作権表記/リンク（最小）
+
+実装詳細：
+- テンプレートエンジン：Nunjucks を使用
+- ベーステンプレート（base.njk）を用意し、ページ固有テンプレート（index.njk, post.njk）で継承
+- スタイル：`/assets/style.css` を読み込み（GitHub Dark風のダークテーマ）
+- スクリプト：Prism.js をCDN経由で読み込み（base.njkの`</body>`直前）
 
 ### 3) meta / OGP（必須）
 #### 全ページ共通
@@ -288,7 +299,7 @@ Sitemap: https://{SITE_DOMAIN}/sitemap.xml
 - タグページ
 - 記事一覧ページ（全件、ページネーション）
 - OGP画像自動生成
-- シンタックスハイライト強化
+- シンタックスハイライト強化（追加言語、行番号、コピーボタン等）
 - RSS/サイトマップの更新日時追跡（git log等）
 - 404.html / redirect
 
