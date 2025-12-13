@@ -5,6 +5,7 @@ import { marked } from 'marked';
 import { validatePost, PostFrontmatter } from '../validator';
 import { renderTemplate } from '../utils/templateEngine';
 import { formatDate } from '../utils/formatDate';
+import { SiteConfig } from '../types/config';
 
 export interface PostMetadata {
   title: string;
@@ -26,7 +27,8 @@ export async function processPost(
   filePath: string,
   contentDir: string,
   outputDir: string,
-  result: ProcessResult
+  result: ProcessResult,
+  config: SiteConfig
 ): Promise<PostMetadata | null> {
   // Read and parse the markdown file
   const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -64,10 +66,12 @@ export async function processPost(
   // Generate full HTML with template
   const { title, description, date, tags } = frontmatter as PostFrontmatter;
   const html = renderTemplate('post.njk', {
-    title,
+    title: `${title} - ${config.siteName}`,
     description,
-    lang: 'en',
+    lang: 'ja',
     currentYear: new Date().getFullYear(),
+    siteName: config.siteName,
+    author: config.author,
     post: {
       title,
       description,

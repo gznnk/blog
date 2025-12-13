@@ -38,6 +38,14 @@ header {
     backdrop-filter: blur(10px);
 }
 
+header h1 {
+    max-width: 900px;
+    margin: 0 auto 0.5rem;
+    padding: 0 2rem;
+    font-size: 1.5rem;
+    color: var(--color-text);
+}
+
 nav {
     max-width: 900px;
     margin: 0 auto;

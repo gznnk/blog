@@ -10,6 +10,7 @@
 </head>
 <body>
     <header>
+        <h1>{{ siteName }}</h1>
         <nav>
             <a href="/">Home</a>
         </nav>
@@ -18,7 +19,7 @@
         {% block content %}{% endblock %}
     </main>
     <footer>
-        <p>&copy; {{ currentYear }}</p>
+        <p>&copy; {{ currentYear }} {{ author }}</p>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>

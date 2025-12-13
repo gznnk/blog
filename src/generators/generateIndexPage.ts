@@ -3,8 +3,9 @@ import * as path from 'path';
 import { marked } from 'marked';
 import { renderTemplate } from '../utils/templateEngine';
 import { PostMetadata } from './processPost';
+import { SiteConfig } from '../types/config';
 
-export function generateIndexPage(posts: PostMetadata[], outputDir: string): void {
+export function generateIndexPage(posts: PostMetadata[], outputDir: string, config: SiteConfig): void {
   // Find the latest post (max date)
   const latestPost = posts.reduce((latest, current) => {
     return current.date > latest.date ? current : latest;
@@ -17,10 +18,12 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string): voi
 
   // Generate index.html using template
   const html = renderTemplate('index.njk', {
-    title: latestPost.title,
-    description: latestPost.description,
+    title: config.siteName,
+    description: config.siteDescription,
     lang: 'ja',
     currentYear: new Date().getFullYear(),
+    siteName: config.siteName,
+    author: config.author,
     post: latestPost,
     content: contentHtml
   });

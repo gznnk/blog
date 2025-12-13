@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import { findMarkdownFiles } from './utils/findMarkdownFiles';
 import { processPost, PostMetadata } from './generators/processPost';
 import { generateIndexPage } from './generators/generateIndexPage';
+import { loadConfig } from './utils/loadConfig';
+import { SiteConfig } from './types/config';
 
 export interface GenerateResult {
   processed: number;
@@ -17,9 +19,13 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
     errors: []
   };
 
+  // Load site configuration
+  const config: SiteConfig = loadConfig();
+  console.log(`Site: ${config.siteName}`);
+
   // Find all markdown files in content/posts/YYYY/MM/DD/*.md
   const postsDir = path.join(contentDir, 'posts');
-  
+
   if (!fs.existsSync(postsDir)) {
     console.error(`Posts directory not found: ${postsDir}`);
     return result;
@@ -27,10 +33,10 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
 
   const markdownFiles = findMarkdownFiles(postsDir);
   const publicPosts: PostMetadata[] = [];
-  
+
   for (const filePath of markdownFiles) {
     try {
-      const postMeta = await processPost(filePath, contentDir, outputDir, result);
+      const postMeta = await processPost(filePath, contentDir, outputDir, result, config);
       if (postMeta) {
         publicPosts.push(postMeta);
       }
@@ -44,7 +50,7 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
 
   // Generate index.html with latest post
   if (publicPosts.length > 0) {
-    generateIndexPage(publicPosts, outputDir);
+    generateIndexPage(publicPosts, outputDir, config);
   }
 
   return result;

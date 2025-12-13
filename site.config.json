@@ -1,0 +1,9 @@
+{
+  "siteName": "Tech Blog",
+  "siteDescription": "技術ブログ - 開発の記録と学び",
+  "siteDomain": "example.github.io",
+  "author": "Your Name",
+  "sidebarMaxItems": 50,
+  "rssMaxItems": 30,
+  "timezone": "Asia/Tokyo"
+}
