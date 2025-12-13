@@ -12,9 +12,22 @@
     <header>
         <h1><a href="{{ basePath }}/">{{ siteName }}</a></h1>
     </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    <div class="container">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <aside class="sidebar">
+            <h2>Posts</h2>
+            <ul class="post-list">
+                {% for post in posts %}
+                <li>
+                    <a href="{{ basePath }}/posts/{{ post.url }}">{{ post.title }}</a>
+                    <time datetime="{{ post.date }}">{{ post.date }}</time>
+                </li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
     <footer>
         <p>&copy; {{ currentYear }} {{ author }}</p>
     </footer>

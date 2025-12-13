@@ -28,7 +28,8 @@ export async function processPost(
   contentDir: string,
   outputDir: string,
   result: ProcessResult,
-  config: SiteConfig
+  config: SiteConfig,
+  allPosts?: PostMetadata[]
 ): Promise<PostMetadata | null> {
   // Read and parse the markdown file
   const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -63,6 +64,28 @@ export async function processPost(
   // Convert markdown to HTML
   const contentHtml = await marked(content);
 
+  // Prepare post list for sidebar (if allPosts is provided)
+  let postList: any[] = [];
+  if (allPosts && allPosts.length > 0) {
+    // Sort posts by date descending and take top N items
+    const sortedPosts = [...allPosts].sort((a, b) => b.date.localeCompare(a.date));
+    const sidebarPosts = sortedPosts.slice(0, config.sidebarMaxItems);
+
+    // Generate post list with URLs for sidebar
+    postList = sidebarPosts.map(post => {
+      // Extract YYYY/MM/DD/slug from file path (handle both \ and / separators)
+      const normalizedPath = post.filePath.replace(/\\/g, '/');
+      const match = normalizedPath.match(/(\d{4})\/(\d{2})\/(\d{2})\/([^/]+)\.md$/);
+      if (!match) return null;
+      const [, year, month, day, slug] = match;
+      return {
+        title: post.title,
+        date: post.date,
+        url: `${year}/${month}/${day}/${slug}/`
+      };
+    }).filter(Boolean);
+  }
+
   // Generate full HTML with template
   const { title, description, date, tags } = frontmatter as PostFrontmatter;
   const html = renderTemplate('post.njk', {
@@ -80,7 +103,8 @@ export async function processPost(
       formattedDate: formatDate(date as string),
       tags
     },
-    content: contentHtml
+    content: contentHtml,
+    posts: postList
   });
 
   // Extract output path from input path

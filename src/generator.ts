@@ -34,6 +34,7 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
   const markdownFiles = findMarkdownFiles(postsDir);
   const publicPosts: PostMetadata[] = [];
 
+  // First pass: collect all post metadata without generating HTML
   for (const filePath of markdownFiles) {
     try {
       const postMeta = await processPost(filePath, contentDir, outputDir, result, config);
@@ -48,8 +49,20 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
     }
   }
 
-  // Generate index.html with latest post
+  // Second pass: regenerate all posts with sidebar data
   if (publicPosts.length > 0) {
+    // Reset counters for second pass
+    result.processed = 0;
+
+    for (const filePath of markdownFiles) {
+      try {
+        await processPost(filePath, contentDir, outputDir, result, config, publicPosts);
+      } catch (error) {
+        // Errors already captured in first pass
+      }
+    }
+
+    // Generate index.html with latest post
     generateIndexPage(publicPosts, outputDir, config);
   }
 
