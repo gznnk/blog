@@ -1,6 +1,6 @@
 {
-  "siteName": "Tech Blog",
-  "siteDescription": "技術ブログ - 開発の記録と学び",
+  "siteName": "システム開発とか",
+  "siteDescription": "システム開発とか、その周辺で考えたこと",
   "siteDomain": "gznnk.github.io",
   "basePath": "/blog",
   "author": "Your Name",

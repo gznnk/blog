@@ -39,7 +39,7 @@ header {
 }
 
 header h1 {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto 0.5rem;
     padding: 0 2rem;
     font-size: 1.5rem;
@@ -57,7 +57,7 @@ header h1 a:hover {
 }
 
 nav {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
 }
