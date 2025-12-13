@@ -32,6 +32,7 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     avatarUrl: config.avatarUrl,
     bio: config.bio,
     githubUrl: config.githubUrl,
+    twitterUrl: config.twitterUrl,
     post: latestPost,
     content: contentHtml,
     posts: postList

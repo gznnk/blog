@@ -6,11 +6,12 @@ export interface SiteConfig {
   siteDescription: string;
   siteDomain: string;
   basePath: string;
+  timezone: string;
   author: string;
   avatarUrl?: string;
   bio?: string;
   githubUrl?: string;
+  twitterUrl?: string;
   sidebarMaxItems: number;
   rssMaxItems: number;
-  timezone: string;
 }

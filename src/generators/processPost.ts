@@ -102,6 +102,7 @@ export async function generatePostHtml(
     avatarUrl: config.avatarUrl,
     bio: config.bio,
     githubUrl: config.githubUrl,
+    twitterUrl: config.twitterUrl,
     post: {
       title,
       description,
