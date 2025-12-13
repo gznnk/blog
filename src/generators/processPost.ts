@@ -3,7 +3,8 @@ import * as path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 import { validatePost, PostFrontmatter } from '../validator';
-import { generatePostLayout } from '../layouts/postLayout';
+import { renderTemplate } from '../utils/templateEngine';
+import { formatDate } from '../utils/formatDate';
 
 export interface PostMetadata {
   title: string;
@@ -60,8 +61,22 @@ export async function processPost(
   // Convert markdown to HTML
   const contentHtml = await marked(content);
 
-  // Generate full HTML with layout
-  const html = generatePostLayout(frontmatter as PostFrontmatter, contentHtml);
+  // Generate full HTML with template
+  const { title, description, date, tags } = frontmatter as PostFrontmatter;
+  const html = renderTemplate('post.njk', {
+    title,
+    description,
+    lang: 'en',
+    currentYear: new Date().getFullYear(),
+    post: {
+      title,
+      description,
+      date,
+      formattedDate: formatDate(date as string),
+      tags
+    },
+    content: contentHtml
+  });
 
   // Extract output path from input path
   // Input: content/posts/YYYY/MM/DD/slug.md

@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { marked } from 'marked';
-import { generateIndexLayout } from '../layouts/indexLayout';
+import { renderTemplate } from '../utils/templateEngine';
 import { PostMetadata } from './processPost';
 
 export function generateIndexPage(posts: PostMetadata[], outputDir: string): void {
@@ -15,8 +15,15 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string): voi
   // Generate HTML for the latest post content
   const contentHtml = marked(latestPost.content) as string;
 
-  // Generate index.html using layout
-  const html = generateIndexLayout(latestPost, contentHtml);
+  // Generate index.html using template
+  const html = renderTemplate('index.njk', {
+    title: latestPost.title,
+    description: latestPost.description,
+    lang: 'ja',
+    currentYear: new Date().getFullYear(),
+    post: latestPost,
+    content: contentHtml
+  });
 
   const indexPath = path.join(outputDir, 'index.html');
   fs.writeFileSync(indexPath, html, 'utf-8');
