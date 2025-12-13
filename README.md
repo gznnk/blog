@@ -9,6 +9,24 @@ Minimal static blog generator (Markdown → HTML) for GitHub Pages
 - **Draft support**: Skip posts marked as drafts
 - **Clean output**: Organized HTML structure with shared layout
 
+## GitHub Pages Setup (Required)
+
+This project uses **GitHub Actions** to deploy the generated static files to GitHub Pages.
+
+Before deployment, configure the repository as follows:
+
+1. Go to **Repository Settings → Pages**
+2. Under **Source**, select **GitHub Actions**
+3. Save the settings
+
+No `gh-pages` branch is required.
+The build output directory must be `dist/`.
+
+Once configured, pushing to the `main` branch will automatically:
+- Build the blog
+- Upload the generated files
+- Deploy them to GitHub Pages
+
 ## Installation
 
 ```bash
@@ -104,3 +122,9 @@ Each post generates an HTML file with:
 
 The Markdown content is converted to HTML and placed inside an `<article>` tag.
 
+## License
+
+The source code in this repository is licensed under the MIT License.
+
+All articles and contents under the `content/` directory are
+© 2025 gznnk. All rights reserved.
