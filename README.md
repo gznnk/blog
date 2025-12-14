@@ -41,7 +41,7 @@ Before deployment, configure the repository as follows:
 3. Save the settings
 
 No `gh-pages` branch is required.
-The build output directory must be `dist/`.
+The build output directory must be `public/`.
 
 Once configured, pushing to the `main` branch will automatically:
 - Build the blog
@@ -64,7 +64,7 @@ npm install
 npm run generate
 ```
 
-Generated HTML files will be in `dist/posts/YYYY/MM/DD/slug/index.html`
+Generated HTML files will be in `public/posts/YYYY/MM/DD/slug/index.html`
 
 ### Local Preview
 
@@ -124,7 +124,7 @@ blog/
 │           └── MM/
 │               └── DD/
 │                   └── slug.md
-├── dist/
+├── public/
 │   └── posts/
 │       └── YYYY/
 │           └── MM/
