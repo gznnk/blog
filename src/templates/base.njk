@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ description }}">
     <title>{{ title }}</title>
+    {% if favicon %}
+    <link rel="icon" href="{{ favicon }}">
+    {% endif %}
     {% if canonicalUrl %}
     <link rel="canonical" href="{{ canonicalUrl }}">
     {% endif %}

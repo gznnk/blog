@@ -10,6 +10,7 @@ export interface SiteConfig {
   author: string;
   avatarUrl?: string;
   ogImage?: string;
+  favicon?: string;
   bio?: string;
   githubUrl?: string;
   twitterUrl?: string;
