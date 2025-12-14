@@ -92,7 +92,7 @@ nav a:hover {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 3rem 2rem;
+    padding: 2rem;
     display: grid;
     grid-template-columns: 1fr 300px;
     gap: 2rem;
@@ -307,7 +307,7 @@ footer {
 @media (max-width: 768px) {
     .container {
         grid-template-columns: 1fr;
-        padding: 2rem 1rem;
+        padding: 1rem;
     }
 
     .sidebar {
@@ -333,6 +333,14 @@ footer {
 
     header h1 {
         padding: 0 1rem;
+    }
+
+    .header-content {
+        padding: 0;
+    }
+
+    .site-description {
+        display: none;
     }
 }
 
@@ -396,7 +404,7 @@ hr {
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin: 0 auto 1rem;
+    margin: 0 auto;
     display: block;
     border: 2px solid var(--color-border);
 }
