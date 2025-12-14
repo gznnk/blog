@@ -4,7 +4,7 @@ import { generateBlog } from './generator';
 
 async function main() {
   const contentDir = path.join(process.cwd(), 'content');
-  const outputDir = path.join(process.cwd(), 'dist');
+  const outputDir = path.join(process.cwd(), 'public');
 
   console.log('Starting blog generation...');
   console.log(`Content directory: ${contentDir}`);

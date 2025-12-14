@@ -9,9 +9,9 @@
   "scripts": {
     "build": "tsc && npm run copy-templates && npm run copy-assets",
     "copy-templates": "node -e \"require('fs').cpSync('src/templates', 'dist/templates', {recursive: true})\"",
-    "copy-assets": "node -e \"require('fs').cpSync('src/assets', 'dist/assets', {recursive: true})\"",
+    "copy-assets": "node -e \"require('fs').cpSync('src/assets', 'public/assets', {recursive: true})\"",
     "generate": "npm run build && node dist/index.js",
-    "preview": "npm run generate && live-server dist --port=3000 --mount=/blog:./dist --open=/blog/",
+    "preview": "npm run generate && live-server public --port=3000 --mount=/blog:./public --open=/blog/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
