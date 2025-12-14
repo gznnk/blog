@@ -9,6 +9,7 @@ export interface SiteConfig {
   timezone: string;
   author: string;
   avatarUrl?: string;
+  ogImage?: string;
   bio?: string;
   githubUrl?: string;
   twitterUrl?: string;

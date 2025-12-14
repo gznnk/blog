@@ -97,6 +97,17 @@ export async function generatePostHtml(
   const urlPath = path.join('posts', parsedPath.dir, parsedPath.name).replace(/\\/g, '/');
   const canonicalUrl = `https://${config.siteDomain}${config.basePath}/${urlPath}/`;
 
+  // Generate absolute OGP image URL if configured
+  let ogImage: string | undefined;
+  if (config.ogImage) {
+    // If ogImage starts with http/https, use as-is; otherwise make it absolute
+    if (config.ogImage.startsWith('http://') || config.ogImage.startsWith('https://')) {
+      ogImage = config.ogImage;
+    } else {
+      ogImage = `https://${config.siteDomain}${config.ogImage}`;
+    }
+  }
+
   // Generate full HTML with template
   const { title, description, date, tags } = post;
   const html = renderTemplate('post.njk', {
@@ -116,6 +127,7 @@ export async function generatePostHtml(
     ogTitle: title,
     ogDescription: description,
     ogType: 'article',
+    ogImage,
     post: {
       title,
       description,

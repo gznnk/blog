@@ -23,6 +23,17 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
   // Generate canonical URL for top page
   const canonicalUrl = `https://${config.siteDomain}${config.basePath}/`;
 
+  // Generate absolute OGP image URL if configured
+  let ogImage: string | undefined;
+  if (config.ogImage) {
+    // If ogImage starts with http/https, use as-is; otherwise make it absolute
+    if (config.ogImage.startsWith('http://') || config.ogImage.startsWith('https://')) {
+      ogImage = config.ogImage;
+    } else {
+      ogImage = `https://${config.siteDomain}${config.ogImage}`;
+    }
+  }
+
   // Generate index.html using template
   const html = renderTemplate('index.njk', {
     title: config.siteName,
@@ -39,6 +50,7 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     twitterUrl: config.twitterUrl,
     canonicalUrl,
     ogType: 'website',
+    ogImage,
     post: latestPost,
     content: contentHtml,
     posts: postList
