@@ -1,22 +1,26 @@
-# blog-generator-reference
-A minimal **reference implementation** for building a static blog generator  
-using **Node.js, TypeScript, and Markdown**.
+# Knowledge as Code
 
-This project is not a full-featured blog engine.
-Instead, it shows **one clear way** to build your own static blog generator
-step by step, and encourages you to extend it using AI tools.
+A personal repository that explores **Knowledge as Code** —
+treating knowledge as something that can be written, versioned,
+built, and published in the same way as software.
 
----
+In this repository, knowledge is written in **Markdown**, edited in a
+developer-friendly environment (VS Code), managed with Git, and
+**automatically built and published as a static website via CI/CD**.
 
-## What this repository is
+This is not simply a blog.
 
-- A **learning scaffold** for static blog generation
-- A **clean starting point** (no hidden magic, no excessive features)
-- A **template you are expected to modify**
+It is an ongoing experiment in whether engineers can:
+- Write knowledge and ideas alongside code, using familiar tools and workflows
+- Collaborate with **coding agents** through natural language inside the IDE
+- Investigate how **Vibe Coding** can accelerate and lower the barrier to
+  practicing **Knowledge as Code** by reducing friction in writing,
+  structuring, and publishing knowledge
 
-If you are looking for a complete blog solution, consider tools like
-Jekyll, Hugo, or Astro.
-If you want to **understand and own the implementation**, this repo is for you.
+Articles, code, generators, and experiments in this repository all serve
+a single question:
+
+**Can knowledge be evolved, reviewed, and deployed as reliably as software?**
 
 ## Features
 
