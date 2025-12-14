@@ -13,6 +13,7 @@ export interface SiteConfig {
   bio?: string;
   githubUrl?: string;
   twitterUrl?: string;
+  cloudflareAnalyticsToken?: string;
   sidebarMaxItems: number;
   rssMaxItems: number;
 }
