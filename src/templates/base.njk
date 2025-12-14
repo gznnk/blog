@@ -10,7 +10,12 @@
 </head>
 <body>
     <header>
-        <h1><a href="{{ basePath }}/">{{ siteName }}</a></h1>
+        <div class="header-content">
+            <h1><a href="{{ basePath }}/">{{ siteName }}</a></h1>
+            {% if siteDescription %}
+            <p class="site-description">{{ siteDescription }}</p>
+            {% endif %}
+        </div>
     </header>
     <div class="container">
         <main>

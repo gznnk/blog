@@ -1,6 +1,6 @@
 {
-  "siteName": "システム開発とか",
-  "siteDescription": "システム開発とか、その周辺で考えたこと",
+  "siteName": "Knowledge as Code",
+  "siteDescription": "知識をソフトウェアのように扱い、構築していく個人ブログ",
   "siteDomain": "gznnk.github.io",
   "basePath": "/blog",
   "timezone": "Asia/Tokyo",

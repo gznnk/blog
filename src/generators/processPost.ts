@@ -97,6 +97,7 @@ export async function generatePostHtml(
     lang: 'ja',
     currentYear: new Date().getFullYear(),
     siteName: config.siteName,
+    siteDescription: config.siteDescription,
     basePath: config.basePath,
     author: config.author,
     avatarUrl: config.avatarUrl,
