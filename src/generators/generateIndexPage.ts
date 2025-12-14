@@ -5,6 +5,7 @@ import { renderTemplate } from '../utils/templateEngine';
 import { PostMetadata } from './processPost';
 import { SiteConfig } from '../types/config';
 import { generatePostList } from '../utils/postList';
+import { formatDate } from '../utils/formatDate';
 
 export function generateIndexPage(posts: PostMetadata[], outputDir: string, config: SiteConfig): void {
   // Find the latest post (max date)
@@ -51,7 +52,10 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     canonicalUrl,
     ogType: 'website',
     ogImage,
-    post: latestPost,
+    post: {
+      ...latestPost,
+      formattedDate: formatDate(latestPost.date)
+    },
     content: contentHtml,
     posts: postList
   });
