@@ -20,6 +20,9 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
   // Generate post list for sidebar
   const postList = generatePostList(posts, config);
 
+  // Generate canonical URL for top page
+  const canonicalUrl = `https://${config.siteDomain}${config.basePath}/`;
+
   // Generate index.html using template
   const html = renderTemplate('index.njk', {
     title: config.siteName,
@@ -27,12 +30,15 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     lang: 'ja',
     currentYear: new Date().getFullYear(),
     siteName: config.siteName,
+    siteDescription: config.siteDescription,
     basePath: config.basePath,
     author: config.author,
     avatarUrl: config.avatarUrl,
     bio: config.bio,
     githubUrl: config.githubUrl,
     twitterUrl: config.twitterUrl,
+    canonicalUrl,
+    ogType: 'website',
     post: latestPost,
     content: contentHtml,
     posts: postList

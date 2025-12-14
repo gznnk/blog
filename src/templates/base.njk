@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ description }}">
     <title>{{ title }}</title>
+    {% if canonicalUrl %}
+    <link rel="canonical" href="{{ canonicalUrl }}">
+    {% endif %}
+
+    {# OGP Tags #}
+    <meta property="og:title" content="{{ ogTitle | default(title) }}">
+    <meta property="og:description" content="{{ ogDescription | default(description) }}">
+    <meta property="og:type" content="{{ ogType | default('website') }}">
+    {% if canonicalUrl %}
+    <meta property="og:url" content="{{ canonicalUrl }}">
+    {% endif %}
+    <meta property="og:site_name" content="{{ siteName }}">
+    {% if ogImage %}
+    <meta property="og:image" content="{{ ogImage }}">
+    {% endif %}
+
     <link rel="stylesheet" href="{{ basePath }}/assets/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>

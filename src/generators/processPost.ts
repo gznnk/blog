@@ -89,6 +89,14 @@ export async function generatePostHtml(
   // Prepare post list for sidebar
   const postList = generatePostList(allPosts, config);
 
+  // Extract URL path from input path
+  // Input: content/posts/YYYY/MM/DD/slug.md
+  // Output URL: /posts/YYYY/MM/DD/slug/
+  const relativePath = path.relative(path.join(contentDir, 'posts'), post.filePath);
+  const parsedPath = path.parse(relativePath);
+  const urlPath = path.join('posts', parsedPath.dir, parsedPath.name).replace(/\\/g, '/');
+  const canonicalUrl = `https://${config.siteDomain}${config.basePath}/${urlPath}/`;
+
   // Generate full HTML with template
   const { title, description, date, tags } = post;
   const html = renderTemplate('post.njk', {
@@ -104,6 +112,10 @@ export async function generatePostHtml(
     bio: config.bio,
     githubUrl: config.githubUrl,
     twitterUrl: config.twitterUrl,
+    canonicalUrl,
+    ogTitle: title,
+    ogDescription: description,
+    ogType: 'article',
     post: {
       title,
       description,
@@ -115,11 +127,9 @@ export async function generatePostHtml(
     posts: postList
   });
 
-  // Extract output path from input path
+  // Extract output path from relative path (already calculated above)
   // Input: content/posts/YYYY/MM/DD/slug.md
   // Output: dist/posts/YYYY/MM/DD/slug/index.html
-  const relativePath = path.relative(path.join(contentDir, 'posts'), post.filePath);
-  const parsedPath = path.parse(relativePath);
   const outputPath = path.join(
     outputDir,
     'posts',
