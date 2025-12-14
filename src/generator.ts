@@ -3,6 +3,9 @@ import * as fs from 'fs';
 import { findMarkdownFiles } from './utils/findMarkdownFiles';
 import { extractPostMetadata, generatePostHtml, PostMetadata } from './generators/processPost';
 import { generateIndexPage } from './generators/generateIndexPage';
+import { generateSitemap } from './generators/generateSitemap';
+import { generateRobotsTxt } from './generators/generateRobotsTxt';
+import { generateRssFeed } from './generators/generateRssFeed';
 import { loadConfig } from './utils/loadConfig';
 import { SiteConfig } from './types/config';
 
@@ -65,6 +68,11 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
 
     // Generate index.html with latest post
     generateIndexPage(publicPosts, outputDir, config);
+
+    // Generate SEO files
+    generateSitemap(publicPosts, outputDir, config);
+    generateRobotsTxt(outputDir, config);
+    generateRssFeed(publicPosts, outputDir, config);
   }
 
   return result;
