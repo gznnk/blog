@@ -5,6 +5,7 @@ description: An article about TypeScript and Node.js
 tags:
   - typescript
   - nodejs
+draft: true
 ---
 
 # TypeScript and Node.js
