@@ -9,6 +9,7 @@
     --color-bg: #ffffff;
     --color-bg-secondary: #f6f8fa;
     --color-bg-tertiary: #eaeef2;
+    --color-bg-page: #EDF2F7;
     --color-text: #1f2328;
     --color-text-secondary: #59636e;
     --color-accent: #0969da;
@@ -19,9 +20,13 @@
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
 }
 
+html {
+    background-color: #ffffff;
+}
+
 body {
     font-family: var(--font-sans);
-    background-color: #EDF2F7;
+    background-color: var(--color-bg-page);
     color: var(--color-text);
     line-height: 1.75;
     font-size: 14px;
