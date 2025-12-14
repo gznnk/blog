@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import { PostMetadata } from './processPost';
 import { SiteConfig } from '../types/config';
 import { extractUrlFromPath } from '../utils/postList';
-import { escapeHtml } from '../utils/escapeHtml';
+import { renderTemplate } from '../utils/templateEngine';
 
 /**
  * Convert date string (YYYY-MM-DD) to RFC 822 format for RSS
@@ -23,47 +23,31 @@ export function generateRssFeed(posts: PostMetadata[], outputDir: string, config
   const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
   const feedPosts = sortedPosts.slice(0, config.rssMaxItems);
 
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
-  xml += '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n';
-  xml += '  <channel>\n';
-  xml += `    <title>${escapeHtml(config.siteName)}</title>\n`;
-  xml += `    <link>${escapeHtml(baseUrl)}/</link>\n`;
-  xml += `    <description>${escapeHtml(config.siteDescription)}</description>\n`;
-  xml += `    <language>ja</language>\n`;
-
-  if (feedPosts.length > 0) {
-    xml += `    <lastBuildDate>${toRfc822Date(feedPosts[0].date)}</lastBuildDate>\n`;
-  }
-
-  xml += `    <atom:link href="${escapeHtml(baseUrl)}/rss.xml" rel="self" type="application/rss+xml" />\n`;
-
-  for (const post of feedPosts) {
+  // Prepare template data
+  const postsData = feedPosts.map(post => {
     const url = extractUrlFromPath(post.filePath);
     if (!url) {
       console.warn(`Failed to extract URL from path: ${post.filePath}`);
-      continue;
+      return null;
     }
+    return {
+      url,
+      title: post.title,
+      description: post.description,
+      pubDate: toRfc822Date(post.date)
+    };
+  }).filter((item): item is NonNullable<typeof item> => item !== null);
 
-    const postUrl = `${baseUrl}/${url}`;
-
-    xml += '    <item>\n';
-    xml += `      <title>${escapeHtml(post.title)}</title>\n`;
-    xml += `      <link>${escapeHtml(postUrl)}</link>\n`;
-    xml += `      <guid isPermaLink="true">${escapeHtml(postUrl)}</guid>\n`;
-    xml += `      <pubDate>${toRfc822Date(post.date)}</pubDate>\n`;
-    xml += `      <author>${escapeHtml(config.author)}</author>\n`;
-
-    if (post.description) {
-      xml += `      <description>${escapeHtml(post.description)}</description>\n`;
-    }
-
-    xml += '    </item>\n';
-  }
-
-  xml += '  </channel>\n';
-  xml += '</rss>\n';
+  const xml = renderTemplate('rss.njk', {
+    siteName: config.siteName,
+    siteDescription: config.siteDescription,
+    baseUrl,
+    author: config.author,
+    lastBuildDate: feedPosts.length > 0 ? toRfc822Date(feedPosts[0].date) : null,
+    posts: postsData
+  });
 
   const outputPath = path.join(outputDir, 'rss.xml');
   fs.writeFileSync(outputPath, xml, 'utf-8');
-  console.log(`Generated rss.xml with ${feedPosts.length} items`);
+  console.log(`Generated rss.xml with ${postsData.length} items`);
 }
