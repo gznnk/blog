@@ -24,8 +24,6 @@ However, in reality, when asked "what is the definition?" or "how far does it in
 This phenomenon is not a coincidence.
 Rather, it is because **the act of system development itself is established in exchange for ambiguity**.
 
----
-
 ## Complex Reality Cannot Be Handled As Is
 
 The real world is continuous and full of exceptions.
@@ -40,8 +38,6 @@ However, systems cannot handle reality as it is.
 - Undefined things cannot be saved
 
 So humans sort reality once.
-
----
 
 ## What is Bureaucratic Thinking?
 
@@ -62,8 +58,6 @@ As a result, reality becomes a "processable form".
 
 Importantly, **this is not a question of good or evil**.
 Bureaucratic thinking is also an essential technology for operating a huge and complex society.
-
----
 
 ## This Structure is System Development Itself
 
@@ -86,8 +80,6 @@ But at the same time, realities like the following are cut off:
 **The gradation of reality is replaced by discrete values.**
 
 This is essentially the same as how bureaucracy handles society.
-
----
 
 ## Why Ambiguity Remains
 
@@ -112,8 +104,6 @@ This is very similar to the situation in bureaucracy where:
 - There are institutions, but interpretations waver
 - There are rules, but they depend on on-site judgment
 
----
-
 ## When Bureaucracy Fails, Systems Also Fail
 
 The problems of bureaucracy pointed out by Harari overlap directly with examples of system development failures.
@@ -130,8 +120,6 @@ As a result, a state is born where:
 
 This is also the essential form of what is called a legacy system.
 
----
-
 ## Good Design is Not About Eliminating Ambiguity
 
 Here, I want to clear up a misunderstanding about design.
@@ -145,8 +133,6 @@ Rather, it is closer to consciously deciding:
 
 Since we cannot completely discard bureaucracy,
 the problem shifts to "how to control bureaucratic thinking".
-
----
 
 ## Conclusion
 

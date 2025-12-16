@@ -67,8 +67,6 @@ In the exploration stage, ambiguous words are rational and even necessary.
 Ambiguity is not a defect but
 **"a function for not deciding yet"**.
 
----
-
 ## Ambiguity Has a Lifespan
 
 The problem is not ambiguity itself.
@@ -86,8 +84,6 @@ eventually, "decision" and "implementation" must always be performed.
 
 A state where ambiguity remains in the implementation phase is
 not a design error but a **structural accident**.
-
----
 
 ## Why People Continue to Use Ambiguous Words
 
@@ -108,8 +104,6 @@ and becomes the responsibility of the downstream if it fails.
 Even if this is unconscious,
 it creates an organizational disease called **dilution of responsibility**.
 
----
-
 ## Why System Development Cannot Withstand Ambiguity
 
 Software cannot execute ambiguity.
@@ -124,8 +118,6 @@ are always concretized somewhere.
 
 And in many cases, that role is
 **pushed onto the implementer with the weakest position**.
-
----
 
 ## Responsibility to "Kill" Ambiguity
 
@@ -142,8 +134,6 @@ In a healthy organization/healthy development:
 - Ambiguity is killed at the appropriate timing
 
 This is what is done.
-
----
 
 ## Conclusion
 
