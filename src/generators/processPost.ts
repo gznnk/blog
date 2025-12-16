@@ -127,6 +127,19 @@ export async function generatePostHtml(
     ? `${config.basePath}/${altLang}/posts/${pathWithoutLang}/${parsedPath.name}/`
     : `${config.basePath}/${altLang}/`;
 
+  // For translated articles (en), find the original article (ja)
+  let originalLangUrl: string | undefined;
+  if (post.lang === 'en') {
+    const originalPost = allPosts.find(p =>
+      p.lang === 'ja' &&
+      p.date === post.date &&
+      p.filePath.split(path.sep).pop() === post.filePath.split(path.sep).pop()
+    );
+    if (originalPost) {
+      originalLangUrl = `${config.basePath}/ja/posts/${pathWithoutLang}/${parsedPath.name}/`;
+    }
+  }
+
   // Generate full HTML with template
   const { title, description, date, tags, lang } = post;
   const html = renderTemplate('post.njk', {
@@ -157,6 +170,7 @@ export async function generatePostHtml(
     currentLang: lang,
     altLang,
     altLangUrl,
+    originalLangUrl,
     i18n: i18n[lang]
   });
 

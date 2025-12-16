@@ -5,6 +5,8 @@ export interface I18nTexts {
   siteDescription: string;
   bio?: string;
   recentPosts: string;
+  translationNotice?: string | null;
+  originalArticle?: string | null;
 }
 
 /**

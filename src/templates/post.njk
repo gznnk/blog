@@ -12,5 +12,11 @@
     </div>
     {% endif %}
     {{ content | safe }}
+    {% if i18n.translationNotice and originalLangUrl %}
+    <div class="translation-notice">
+        <p>{{ i18n.translationNotice }}</p>
+        <p><a href="{{ originalLangUrl }}" class="original-link">{{ i18n.originalArticle }}</a></p>
+    </div>
+    {% endif %}
 </article>
 {% endblock %}

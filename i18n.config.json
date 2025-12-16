@@ -2,11 +2,15 @@
   "ja": {
     "siteDescription": "知識をソフトウェアのように扱い、構築していく個人ブログ",
     "bio": "シニアエンジニア。２児の父親。情報や手段より、動くモノを作りたい。小さなSlerで泥臭くやってます。",
-    "recentPosts": "最近の記事"
+    "recentPosts": "最近の記事",
+    "translationNotice": null,
+    "originalArticle": null
   },
   "en": {
     "siteDescription": "A personal blog that treats knowledge like software and builds it systematically",
     "bio": "Senior engineer. Father of two. I want to create working things rather than just information or tools. Working at a small SI company.",
-    "recentPosts": "Recent Posts"
+    "recentPosts": "Recent Posts",
+    "translationNotice": "This article was automatically translated by AI.",
+    "originalArticle": "Read the original article (Japanese)"
   }
 }

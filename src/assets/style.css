@@ -186,6 +186,31 @@ time {
     margin-bottom: 1.5rem;
 }
 
+/* Translation Notice */
+.translation-notice {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.translation-notice p {
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.translation-notice .original-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.translation-notice .original-link:hover {
+    border-bottom-color: var(--color-accent);
+}
+
 /* Tags */
 .tags {
     display: flex;
