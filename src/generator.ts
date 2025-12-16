@@ -75,7 +75,7 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
     for (const lang of config.supportedLangs) {
       const langPosts = publicPosts.filter(p => p.lang === lang);
       if (langPosts.length > 0) {
-        generateIndexPage(langPosts, outputDir, config, lang, i18n);
+        generateIndexPage(langPosts, outputDir, config, lang, i18n, contentDir);
       }
     }
 

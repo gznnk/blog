@@ -5,18 +5,15 @@ import { renderTemplate } from '../utils/templateEngine';
 import { PostMetadata } from './processPost';
 import { SiteConfig, I18nConfig } from '../types/config';
 import { generatePostList } from '../utils/postList';
-import { formatDate } from '../utils/formatDate';
+import { loadSiteDescription } from '../utils/loadSiteDescription';
 
-export function generateIndexPage(posts: PostMetadata[], outputDir: string, config: SiteConfig, lang: string, i18n: I18nConfig): void {
-  // Find the latest post (max date) for this language
-  const latestPost = posts.reduce((latest, current) => {
-    return current.date > latest.date ? current : latest;
-  });
+export function generateIndexPage(posts: PostMetadata[], outputDir: string, config: SiteConfig, lang: string, i18n: I18nConfig, contentDir: string): void {
+  // Load site description for this language
+  const siteDescriptionMd = loadSiteDescription(contentDir, lang);
+  console.log(`Loading site description for ${lang}`);
 
-  console.log(`Latest post (${lang}): ${latestPost.title} (${latestPost.date})`);
-
-  // Generate HTML for the latest post content
-  const contentHtml = marked(latestPost.content) as string;
+  // Generate HTML for the site description
+  const contentHtml = marked(siteDescriptionMd) as string;
 
   // Generate post list for sidebar (filtered by language)
   const postList = generatePostList(posts, config, lang);
@@ -54,10 +51,6 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     canonicalUrl,
     ogType: 'website',
     ogImage,
-    post: {
-      ...latestPost,
-      formattedDate: formatDate(latestPost.date)
-    },
     content: contentHtml,
     posts: postList,
     currentLang: lang,
