@@ -350,6 +350,17 @@ footer {
     margin: 0;
 }
 
+.footer-repository a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-repository a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
 .footer-lang {
     display: flex;
     align-items: center;

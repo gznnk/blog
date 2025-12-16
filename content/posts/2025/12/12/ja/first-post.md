@@ -4,7 +4,6 @@ date: 2025-12-12
 description: "Vibe CodingでMarkdown + Git + AIでブログを構築。Knowledge as Codeの実践とZennやQiitaとは異なる「伝達」の場としての位置づけ。"
 lang: "ja"
 tags:
-  - ブログ
   - Knowledge as Code
   - Vibe Coding
   - AI

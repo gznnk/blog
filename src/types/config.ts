@@ -27,6 +27,7 @@ export interface SiteConfig {
   ogImage?: string;
   favicon?: string;
   githubUrl?: string;
+  repositoryUrl?: string;
   twitterUrl?: string;
   cloudflareAnalyticsToken?: string;
   sidebarMaxItems: number;

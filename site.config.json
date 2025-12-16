@@ -8,6 +8,7 @@
   "ogImage": "/blog/assets/ogp.png",
   "favicon": "/blog/assets/favicon.png",
   "githubUrl": "https://github.com/gznnk",
+  "repositoryUrl": "https://github.com/gznnk/blog",
   "twitterUrl": "https://x.com/gznnk_",
   "cloudflareAnalyticsToken": "c7f5a918ebaf47b79954ec97ad23bf06",
   "sidebarMaxItems": 50,

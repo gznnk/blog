@@ -47,6 +47,7 @@ export function generateIndexPage(posts: PostMetadata[], outputDir: string, conf
     author: config.author,
     avatarUrl: config.avatarUrl,
     githubUrl: config.githubUrl,
+    repositoryUrl: config.repositoryUrl,
     twitterUrl: config.twitterUrl,
     canonicalUrl,
     ogType: 'website',

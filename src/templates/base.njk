@@ -89,6 +89,11 @@
     <footer>
         <div class="footer-content">
             <p>&copy; {{ currentYear }} {{ author }}</p>
+            {% if repositoryUrl %}
+            <p class="footer-repository">
+                <a href="{{ repositoryUrl }}" target="_blank" rel="noopener noreferrer">View Source</a>
+            </p>
+            {% endif %}
             {% if altLang and altLangUrl %}
             <div class="footer-lang">
                 <span class="footer-lang-label">Language</span>

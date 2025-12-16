@@ -152,6 +152,7 @@ export async function generatePostHtml(
     author: config.author,
     avatarUrl: config.avatarUrl,
     githubUrl: config.githubUrl,
+    repositoryUrl: config.repositoryUrl,
     twitterUrl: config.twitterUrl,
     canonicalUrl,
     ogTitle: title,
