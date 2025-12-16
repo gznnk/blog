@@ -2,6 +2,7 @@ export interface PostFrontmatter {
   title: string;
   date: string;
   description: string;
+  lang: string;
   tags?: string[];
   draft?: boolean;
 }
@@ -13,7 +14,8 @@ export interface ValidationError {
 
 export function validatePost(
   frontmatter: any,
-  filePath: string
+  filePath: string,
+  supportedLangs: string[] = ['ja', 'en']
 ): { valid: boolean; errors: ValidationError[] } {
   const errors: ValidationError[] = [];
 
@@ -28,6 +30,12 @@ export function validatePost(
 
   if (!frontmatter.description || typeof frontmatter.description !== 'string') {
     errors.push({ field: 'description', message: 'Description is required and must be a string' });
+  }
+
+  if (!frontmatter.lang || typeof frontmatter.lang !== 'string') {
+    errors.push({ field: 'lang', message: 'Lang is required and must be a string' });
+  } else if (!supportedLangs.includes(frontmatter.lang)) {
+    errors.push({ field: 'lang', message: `Lang must be one of: ${supportedLangs.join(', ')}` });
   }
 
   // Normalize date to string format (gray-matter may parse it as Date object)
@@ -68,15 +76,23 @@ export function validatePost(
   }
 
   // Validate folder date matches frontmatter date
-  // Extract date from path: content/posts/YYYY/MM/DD/slug.md
-  const pathMatch = filePath.match(/\/(\d{4})\/(\d{2})\/(\d{2})\//);
+  // Extract date from path: content/posts/YYYY/MM/DD/lang/slug.md
+  const pathMatch = filePath.match(/\/(\d{4})\/(\d{2})\/(\d{2})\/([a-z]{2})\//);
   if (pathMatch && dateString) {
-    const [, pathYear, pathMonth, pathDay] = pathMatch;
+    const [, pathYear, pathMonth, pathDay, pathLang] = pathMatch;
     const folderDate = `${pathYear}-${pathMonth}-${pathDay}`;
     if (folderDate !== dateString) {
       errors.push({
         field: 'date',
         message: `Folder date (${folderDate}) does not match frontmatter date (${dateString})`
+      });
+    }
+
+    // Validate folder lang matches frontmatter lang
+    if (frontmatter.lang && pathLang !== frontmatter.lang) {
+      errors.push({
+        field: 'lang',
+        message: `Folder lang (${pathLang}) does not match frontmatter lang (${frontmatter.lang})`
       });
     }
   }

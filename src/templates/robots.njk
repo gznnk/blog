@@ -2,5 +2,6 @@
 
 User-agent: *
 Allow: /
-
-Sitemap: {{ baseUrl }}/sitemap.xml
+{% for lang in supportedLangs %}
+Sitemap: {{ baseUrl }}/{{ lang }}/sitemap.xml
+{% endfor %}

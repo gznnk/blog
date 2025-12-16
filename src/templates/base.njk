@@ -30,9 +30,18 @@
 <body>
     <header>
         <div class="header-content">
-            <h1><a href="{{ basePath }}/">{{ siteName }}</a></h1>
-            {% if siteDescription %}
-            <p class="site-description">{{ siteDescription }}</p>
+            <div class="header-main">
+                <h1><a href="{{ basePath }}/{{ currentLang }}/">{{ siteName }}</a></h1>
+                {% if i18n.siteDescription %}
+                <p class="site-description">{{ i18n.siteDescription }}</p>
+                {% endif %}
+            </div>
+            {% if altLang and altLangUrl %}
+            <div class="lang-switcher">
+                <a href="{{ altLangUrl }}" class="lang-link">
+                    {% if altLang == 'en' %}English{% else %}日本語{% endif %}
+                </a>
+            </div>
             {% endif %}
         </div>
     </header>
@@ -49,8 +58,8 @@
                 {% if author %}
                 <h3 class="profile-name">{{ author }}</h3>
                 {% endif %}
-                {% if bio %}
-                <p class="profile-bio">{{ bio }}</p>
+                {% if i18n.bio %}
+                <p class="profile-bio">{{ i18n.bio }}</p>
                 {% endif %}
                 {% if githubUrl or twitterUrl %}
                 <div class="profile-links">
@@ -74,11 +83,11 @@
             </div>
             {% endif %}
             <div class="posts-section">
-                <h2>最近の記事</h2>
+                <h2>{{ i18n.recentPosts }}</h2>
                 <ul class="post-list">
                     {% for post in posts %}
                     <li>
-                        <a href="{{ basePath }}/posts/{{ post.url }}">{{ post.title }}</a>
+                        <a href="{{ basePath }}/{{ post.url }}">{{ post.title }}</a>
                         <time datetime="{{ post.date }}">{{ post.date }}</time>
                     </li>
                     {% endfor %}

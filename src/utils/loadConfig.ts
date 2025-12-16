@@ -21,7 +21,6 @@ export function loadConfig(): SiteConfig {
   // Validate required fields
   const requiredFields: (keyof SiteConfig)[] = [
     "siteName",
-    "siteDescription",
     "siteDomain",
     "basePath",
     "author",

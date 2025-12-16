@@ -2,6 +2,7 @@
 title: My First Blog Post
 date: 2024-01-15
 description: This is my first blog post about web development
+lang: "ja"
 tags:
   - web
   - tutorial

@@ -2,6 +2,7 @@
 title: "モダンなWeb開発のベストプラクティス"
 date: 2024-12-13
 description: "TypeScript、React、そしてモダンなツールチェーンを使った開発のベストプラクティスを紹介します"
+lang: "ja"
 tags:
   - typescript
   - react

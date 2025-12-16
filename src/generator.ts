@@ -7,6 +7,8 @@ import { generateSitemap } from './generators/generateSitemap';
 import { generateRobotsTxt } from './generators/generateRobotsTxt';
 import { generateRssFeed } from './generators/generateRssFeed';
 import { loadConfig } from './utils/loadConfig';
+import { loadI18n } from './utils/loadI18n';
+import { renderTemplate } from './utils/templateEngine';
 import { SiteConfig } from './types/config';
 
 export interface GenerateResult {
@@ -26,6 +28,9 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
   const config: SiteConfig = loadConfig();
   console.log(`Site: ${config.siteName}`);
 
+  // Load i18n configuration
+  const i18n = loadI18n();
+
   // Find all markdown files in content/posts/YYYY/MM/DD/*.md
   const postsDir = path.join(contentDir, 'posts');
 
@@ -40,7 +45,7 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
   // First pass: collect all post metadata without generating HTML
   for (const filePath of markdownFiles) {
     try {
-      const postMeta = extractPostMetadata(filePath, result);
+      const postMeta = extractPostMetadata(filePath, result, config.supportedLangs);
       if (postMeta) {
         publicPosts.push(postMeta);
       }
@@ -56,7 +61,7 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
   if (publicPosts.length > 0) {
     for (const post of publicPosts) {
       try {
-        await generatePostHtml(post, contentDir, outputDir, config, publicPosts);
+        await generatePostHtml(post, contentDir, outputDir, config, publicPosts, i18n);
         result.processed++;
       } catch (error) {
         result.errors.push({
@@ -66,13 +71,34 @@ export async function generateBlog(contentDir: string, outputDir: string): Promi
       }
     }
 
-    // Generate index.html with latest post
-    generateIndexPage(publicPosts, outputDir, config);
+    // Generate index.html for each language
+    for (const lang of config.supportedLangs) {
+      const langPosts = publicPosts.filter(p => p.lang === lang);
+      if (langPosts.length > 0) {
+        generateIndexPage(langPosts, outputDir, config, lang, i18n);
+      }
+    }
 
-    // Generate SEO files
-    generateSitemap(publicPosts, outputDir, config);
+    // Generate root index.html (redirect to default language)
+    const rootIndexPath = path.join(outputDir, 'index.html');
+    const redirectHtml = renderTemplate('redirect.njk', {
+      redirectUrl: `${config.basePath}/${config.defaultLang}/`,
+      lang: config.defaultLang
+    });
+    fs.writeFileSync(rootIndexPath, redirectHtml, 'utf-8');
+    console.log(`Generated root redirect: ${rootIndexPath}`);
+
+    // Generate SEO files for each language
+    for (const lang of config.supportedLangs) {
+      const langPosts = publicPosts.filter(p => p.lang === lang);
+      if (langPosts.length > 0) {
+        generateSitemap(langPosts, outputDir, config, lang);
+        generateRssFeed(langPosts, outputDir, config, lang, i18n);
+      }
+    }
+
+    // Generate robots.txt (common for all languages)
     generateRobotsTxt(outputDir, config);
-    generateRssFeed(publicPosts, outputDir, config);
   }
 
   return result;

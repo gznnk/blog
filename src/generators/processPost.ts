@@ -5,13 +5,14 @@ import { marked } from 'marked';
 import { validatePost, PostFrontmatter } from '../validator';
 import { renderTemplate } from '../utils/templateEngine';
 import { formatDate } from '../utils/formatDate';
-import { SiteConfig } from '../types/config';
+import { SiteConfig, I18nConfig } from '../types/config';
 import { generatePostList } from '../utils/postList';
 
 export interface PostMetadata {
   title: string;
   date: string;
   description: string;
+  lang: string;
   tags?: string[];
   filePath: string;
   content: string;
@@ -29,7 +30,8 @@ export interface ProcessResult {
  */
 export function extractPostMetadata(
   filePath: string,
-  result: ProcessResult
+  result: ProcessResult,
+  supportedLangs: string[] = ['ja', 'en']
 ): PostMetadata | null {
   // Read and parse the markdown file
   const fileContent = fs.readFileSync(filePath, 'utf-8');
@@ -51,7 +53,7 @@ export function extractPostMetadata(
   }
 
   // Validate the post
-  const validation = validatePost(frontmatter, filePath);
+  const validation = validatePost(frontmatter, filePath, supportedLangs);
 
   if (!validation.valid) {
     result.errors.push({
@@ -66,6 +68,7 @@ export function extractPostMetadata(
     title: frontmatter.title as string,
     date: frontmatter.date as string,
     description: frontmatter.description as string,
+    lang: frontmatter.lang as string,
     tags: frontmatter.tags as string[] | undefined,
     filePath,
     content,
@@ -81,20 +84,25 @@ export async function generatePostHtml(
   contentDir: string,
   outputDir: string,
   config: SiteConfig,
-  allPosts: PostMetadata[]
+  allPosts: PostMetadata[],
+  i18n: I18nConfig
 ): Promise<void> {
   // Convert markdown to HTML
   const contentHtml = await marked(post.content);
 
-  // Prepare post list for sidebar
-  const postList = generatePostList(allPosts, config);
+  // Prepare post list for sidebar (filtered by language)
+  const postList = generatePostList(allPosts, config, post.lang);
 
   // Extract URL path from input path
-  // Input: content/posts/YYYY/MM/DD/slug.md
-  // Output URL: /posts/YYYY/MM/DD/slug/
+  // Input: content/posts/YYYY/MM/DD/lang/slug.md
+  // Output URL: /lang/posts/YYYY/MM/DD/slug/
   const relativePath = path.relative(path.join(contentDir, 'posts'), post.filePath);
   const parsedPath = path.parse(relativePath);
-  const urlPath = path.join('posts', parsedPath.dir, parsedPath.name).replace(/\\/g, '/');
+  // Remove the lang directory from the path
+  const pathParts = parsedPath.dir.split(path.sep);
+  const langIndex = pathParts.findIndex(p => p === post.lang);
+  const pathWithoutLang = [...pathParts.slice(0, langIndex), ...pathParts.slice(langIndex + 1)].join('/');
+  const urlPath = `${post.lang}/posts/${pathWithoutLang}/${parsedPath.name}`.replace(/\\/g, '/');
   const canonicalUrl = `https://${config.siteDomain}${config.basePath}/${urlPath}/`;
 
   // Generate absolute OGP image URL if configured
@@ -108,19 +116,28 @@ export async function generatePostHtml(
     }
   }
 
+  // Find alternative language version for language switcher
+  const altLang = post.lang === 'ja' ? 'en' : 'ja';
+  const altLangPost = allPosts.find(p =>
+    p.lang === altLang &&
+    p.date === post.date &&
+    p.filePath.split(path.sep).pop() === post.filePath.split(path.sep).pop()
+  );
+  const altLangUrl = altLangPost
+    ? `${config.basePath}/${altLang}/posts/${pathWithoutLang}/${parsedPath.name}/`
+    : `${config.basePath}/${altLang}/`;
+
   // Generate full HTML with template
-  const { title, description, date, tags } = post;
+  const { title, description, date, tags, lang } = post;
   const html = renderTemplate('post.njk', {
     title: `${title} - ${config.siteName}`,
     description,
-    lang: 'ja',
+    lang,
     currentYear: new Date().getFullYear(),
     siteName: config.siteName,
-    siteDescription: config.siteDescription,
     basePath: config.basePath,
     author: config.author,
     avatarUrl: config.avatarUrl,
-    bio: config.bio,
     githubUrl: config.githubUrl,
     twitterUrl: config.twitterUrl,
     canonicalUrl,
@@ -136,16 +153,21 @@ export async function generatePostHtml(
       tags
     },
     content: contentHtml,
-    posts: postList
+    posts: postList,
+    currentLang: lang,
+    altLang,
+    altLangUrl,
+    i18n: i18n[lang]
   });
 
-  // Extract output path from relative path (already calculated above)
-  // Input: content/posts/YYYY/MM/DD/slug.md
-  // Output: dist/posts/YYYY/MM/DD/slug/index.html
+  // Extract output path from relative path
+  // Input: content/posts/YYYY/MM/DD/lang/slug.md
+  // Output: dist/lang/posts/YYYY/MM/DD/slug/index.html
   const outputPath = path.join(
     outputDir,
+    lang,
     'posts',
-    parsedPath.dir,
+    pathWithoutLang,
     parsedPath.name,
     'index.html'
   );

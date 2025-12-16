@@ -11,7 +11,8 @@ export function generateRobotsTxt(outputDir: string, config: SiteConfig): void {
 
   const content = renderTemplate('robots.njk', {
     siteName: config.siteName,
-    baseUrl
+    baseUrl,
+    supportedLangs: config.supportedLangs
   });
 
   const outputPath = path.join(outputDir, 'robots.txt');

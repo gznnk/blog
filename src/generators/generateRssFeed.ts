@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { PostMetadata } from './processPost';
-import { SiteConfig } from '../types/config';
+import { SiteConfig, I18nConfig } from '../types/config';
 import { extractUrlFromPath } from '../utils/postList';
 import { renderTemplate } from '../utils/templateEngine';
 
@@ -18,7 +18,7 @@ function toRfc822Date(dateString: string): string {
 /**
  * Generate RSS feed (rss.xml) for blog posts
  */
-export function generateRssFeed(posts: PostMetadata[], outputDir: string, config: SiteConfig): void {
+export function generateRssFeed(posts: PostMetadata[], outputDir: string, config: SiteConfig, lang: string, i18n: I18nConfig): void {
   const baseUrl = `https://${config.siteDomain}${config.basePath}`;
   const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
   const feedPosts = sortedPosts.slice(0, config.rssMaxItems);
@@ -40,14 +40,16 @@ export function generateRssFeed(posts: PostMetadata[], outputDir: string, config
 
   const xml = renderTemplate('rss.njk', {
     siteName: config.siteName,
-    siteDescription: config.siteDescription,
+    siteDescription: i18n[lang].siteDescription,
     baseUrl,
+    lang,
     author: config.author,
     lastBuildDate: feedPosts.length > 0 ? toRfc822Date(feedPosts[0].date) : null,
     posts: postsData
   });
 
-  const outputPath = path.join(outputDir, 'rss.xml');
+  const outputPath = path.join(outputDir, lang, 'rss.xml');
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, xml, 'utf-8');
-  console.log(`Generated rss.xml with ${postsData.length} items`);
+  console.log(`Generated rss.xml (${lang}) with ${postsData.length} items`);
 }

@@ -2,6 +2,7 @@
 title: Draft Post - Work in Progress
 date: 2024-02-20
 description: This is a draft post that should not be published
+lang: "ja"
 draft: true
 ---
 

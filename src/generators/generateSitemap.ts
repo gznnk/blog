@@ -8,7 +8,7 @@ import { renderTemplate } from '../utils/templateEngine';
 /**
  * Generate sitemap.xml for SEO
  */
-export function generateSitemap(posts: PostMetadata[], outputDir: string, config: SiteConfig): void {
+export function generateSitemap(posts: PostMetadata[], outputDir: string, config: SiteConfig, lang: string): void {
   const baseUrl = `https://${config.siteDomain}${config.basePath}`;
   const sortedPosts = [...posts].sort((a, b) => b.date.localeCompare(a.date));
 
@@ -27,11 +27,13 @@ export function generateSitemap(posts: PostMetadata[], outputDir: string, config
 
   const xml = renderTemplate('sitemap.njk', {
     baseUrl,
+    lang,
     latestDate: sortedPosts.length > 0 ? sortedPosts[0].date : null,
     posts: postsData
   });
 
-  const outputPath = path.join(outputDir, 'sitemap.xml');
+  const outputPath = path.join(outputDir, lang, 'sitemap.xml');
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, xml, 'utf-8');
-  console.log(`Generated sitemap.xml with ${postsData.length + 1} URLs`);
+  console.log(`Generated sitemap.xml (${lang}) with ${postsData.length + 1} URLs`);
 }

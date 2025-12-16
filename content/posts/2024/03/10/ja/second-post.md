@@ -2,6 +2,7 @@
 title: Second Blog Post
 date: 2024-03-10
 description: An article about TypeScript and Node.js
+lang: "ja"
 tags:
   - typescript
   - nodejs

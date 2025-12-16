@@ -1,9 +1,22 @@
 /**
+ * i18n text translations
+ */
+export interface I18nTexts {
+  siteDescription: string;
+  bio?: string;
+  recentPosts: string;
+}
+
+/**
+ * i18n configuration
+ */
+export type I18nConfig = Record<string, I18nTexts>;
+
+/**
  * Site configuration structure
  */
 export interface SiteConfig {
   siteName: string;
-  siteDescription: string;
   siteDomain: string;
   basePath: string;
   timezone: string;
@@ -11,10 +24,11 @@ export interface SiteConfig {
   avatarUrl?: string;
   ogImage?: string;
   favicon?: string;
-  bio?: string;
   githubUrl?: string;
   twitterUrl?: string;
   cloudflareAnalyticsToken?: string;
   sidebarMaxItems: number;
   rssMaxItems: number;
+  defaultLang: string;
+  supportedLangs: string[];
 }
