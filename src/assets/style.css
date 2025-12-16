@@ -9,12 +9,12 @@
     --color-bg: #ffffff;
     --color-bg-secondary: #f6f8fa;
     --color-bg-tertiary: #eaeef2;
-    --color-bg-page: #EDF2F7;
+    --color-bg-page: #F7F7F7;
     --color-text: #1f2328;
     --color-text-secondary: #59636e;
     --color-accent: #0969da;
     --color-accent-hover: #0550ae;
-    --color-border: #d1d9e0;
+    --color-border: #e5e7eb;
     --color-code-bg: #f6f8fa;
     --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
@@ -53,38 +53,8 @@ header.header-hidden {
     margin: 0 auto;
     padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1rem;
-}
-
-.header-main {
-    display: flex;
     align-items: baseline;
     gap: 1rem;
-}
-
-.lang-switcher {
-    display: flex;
-    align-items: flex-end;
-    padding-bottom: 0.2rem;
-}
-
-.lang-link {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 0.3rem 0.6rem;
-    border: 1px solid var(--color-border);
-    border-radius: 3px;
-    transition: all 0.2s;
-}
-
-.lang-link:hover {
-    color: var(--color-accent);
-    border-color: var(--color-accent);
-    background-color: var(--color-bg-secondary);
 }
 
 header h1 {
@@ -338,9 +308,51 @@ footer {
     background-color: #ffffff;
     border-top: 1px solid var(--color-border);
     padding: 1rem;
-    text-align: center;
     color: var(--color-text-secondary);
     font-size: 0.8rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content p {
+    margin: 0;
+}
+
+.footer-lang {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+}
+
+.footer-lang-label {
+    color: var(--color-text-secondary);
+}
+
+.footer-lang-separator {
+    color: var(--color-border);
+}
+
+.footer-lang-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-lang-link:hover {
+    color: var(--color-accent);
+}
+
+.footer-lang-current {
+    color: var(--color-text);
+    font-weight: 500;
 }
 
 /* Responsive Design */
@@ -395,13 +407,14 @@ footer {
         display: none;
     }
 
-    .lang-switcher {
-        padding-bottom: 0;
+    .footer-content {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
     }
 
-    .lang-link {
-        font-size: 0.75rem;
-        padding: 0.25rem 0.5rem;
+    .footer-lang {
+        font-size: 0.7rem;
     }
 }
 

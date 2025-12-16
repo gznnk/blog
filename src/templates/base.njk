@@ -30,18 +30,9 @@
 <body>
     <header>
         <div class="header-content">
-            <div class="header-main">
-                <h1><a href="{{ basePath }}/{{ currentLang }}/">{{ siteName }}</a></h1>
-                {% if i18n.siteDescription %}
-                <p class="site-description">{{ i18n.siteDescription }}</p>
-                {% endif %}
-            </div>
-            {% if altLang and altLangUrl %}
-            <div class="lang-switcher">
-                <a href="{{ altLangUrl }}" class="lang-link">
-                    {% if altLang == 'en' %}English{% else %}日本語{% endif %}
-                </a>
-            </div>
+            <h1><a href="{{ basePath }}/{{ currentLang }}/">{{ siteName }}</a></h1>
+            {% if i18n.siteDescription %}
+            <p class="site-description">{{ i18n.siteDescription }}</p>
             {% endif %}
         </div>
     </header>
@@ -96,7 +87,20 @@
         </aside>
     </div>
     <footer>
-        <p>&copy; {{ currentYear }} {{ author }}</p>
+        <div class="footer-content">
+            <p>&copy; {{ currentYear }} {{ author }}</p>
+            {% if altLang and altLangUrl %}
+            <div class="footer-lang">
+                <span class="footer-lang-label">Language</span>
+                <span class="footer-lang-separator">/</span>
+                <a href="{{ altLangUrl }}" class="footer-lang-link">
+                    {% if altLang == 'en' %}English{% else %}日本語{% endif %}
+                </a>
+                <span class="footer-lang-separator">/</span>
+                <span class="footer-lang-current">{% if currentLang == 'en' %}English{% else %}日本語{% endif %}</span>
+            </div>
+            {% endif %}
+        </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
