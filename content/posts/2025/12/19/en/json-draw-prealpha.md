@@ -8,9 +8,6 @@ tags:
   - Development
 draft: false
 ---
-
-# I built an AI-native drawing app designed with AI in mind, structured with JSON (Pre-Alpha).
-
 Starting with GitHub Copilot in February of this year, I have continued coding with the help of AI for about 10 months.
 I have been developing an AI-native drawing application that holds its structure in JSON.
 It is still a Pre-Alpha version, but since it has taken shape to some extent and the year is coming to an end, I would like to introduce it as a retrospective of my work so far.
