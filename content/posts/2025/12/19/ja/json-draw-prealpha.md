@@ -6,7 +6,7 @@ lang: "ja"
 tags:
   - AI
   - 開発
-draft: true
+draft: false
 ---
 
 # AI前提で設計した、JSONで構造を持つAIネイティブな作図アプリを作りました（Pre-Alpha版）。
