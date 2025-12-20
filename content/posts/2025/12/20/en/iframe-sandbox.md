@@ -10,8 +10,6 @@ tags:
 draft: false
 ---
 
-# iframe `sandbox` in practice: no sandbox is permissive, sandbox defaults to deny-all, then allow only what you need
-
 The `<iframe>` element is useful, but it also embeds third‑party content directly into your page. The `sandbox` attribute is a browser-enforced safety mechanism that reduces what the framed document is allowed to do.
 
 This post covers:
