@@ -16,10 +16,10 @@ This repository is a **Knowledge as Code** experiment — treating knowledge as 
 ```
 blog/
 ├── content/
-│   ├── posts/YYYY/MM/DD/{lang}/slug.md  # Blog posts organized by date and language
+│   ├── posts/YYYY/MM/DD/{lang}/slug.md  # Input: date-first structure
 │   └── sections/{lang}/*.md              # Site descriptions
 ├── public/                                # Build output (generated, git-ignored)
-│   └── {lang}/posts/YYYY/MM/DD/slug/index.html
+│   └── {lang}/posts/YYYY/MM/DD/slug/index.html  # Output: language-first structure
 ├── src/
 │   ├── generator.ts                      # Main generation logic
 │   ├── validator.ts                      # Post validation
@@ -85,11 +85,20 @@ Optional fields:
 - `draft` (boolean): Set to `true` to skip during generation
 
 ### File Structure Rules
-1. Posts must be in `content/posts/YYYY/MM/DD/{lang}/slug.md`
-2. Folder date must match frontmatter date
-3. Folder lang must match frontmatter lang
-4. Supported languages: `ja` (Japanese) and `en` (English)
-5. Posts marked as `draft: true` are skipped during generation
+
+**Input structure** (content):
+- Posts must be in `content/posts/YYYY/MM/DD/{lang}/slug.md` (date-first organization)
+- Folder date must match frontmatter date
+- Folder lang must match frontmatter lang
+
+**Output structure** (public):
+- Generated HTML goes to `public/{lang}/posts/YYYY/MM/DD/slug/index.html` (language-first organization)
+- This transformation allows for easy language-based site structure and routing
+
+**Language support**:
+- Currently supported languages: `ja` (Japanese) and `en` (English) only
+- Languages are defined in `site.config.json` under `supportedLangs`
+- Posts marked as `draft: true` are skipped during generation
 
 ### Validation
 - All validations are implemented in `src/validator.ts`
@@ -155,7 +164,8 @@ Optional fields:
 
 ## Special Considerations
 
-- This is a **multilingual blog**: Always consider both `ja` and `en` languages
+- This is a **multilingual blog**: Always consider both `ja` and `en` languages (these are currently the only supported languages)
+- **Path structure transformation**: Input files use date-first structure (`YYYY/MM/DD/{lang}`), output uses language-first (`{lang}/posts/YYYY/MM/DD`)
 - Date handling: gray-matter may parse dates as Date objects; normalize to YYYY-MM-DD strings
 - Path safety: Always use `path.join()` for file paths, never string concatenation
 - Console logging: Use clear, structured console output with emoji (✓, ✗) when appropriate
