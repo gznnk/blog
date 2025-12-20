@@ -56,7 +56,7 @@ npm install
 
 ## Usage
 
-1. Create your blog posts in `content/posts/YYYY/MM/DD/slug.md`
+1. Create your blog posts in `content/posts/YYYY/MM/DD/{lang}/slug.md`
 2. Add YAML frontmatter with required fields
 3. Run the generator:
 
@@ -64,7 +64,7 @@ npm install
 npm run generate
 ```
 
-Generated HTML files will be in `public/posts/YYYY/MM/DD/slug/index.html`
+Generated HTML files will be in `public/{lang}/posts/YYYY/MM/DD/slug/index.html`
 
 ### Local Preview
 
@@ -85,6 +85,7 @@ Each post must be a Markdown file with YAML frontmatter:
 title: My Blog Post Title
 date: 2024-01-15
 description: A brief description of the post
+lang: ja
 tags:
   - web
   - tutorial
@@ -101,6 +102,7 @@ Write your blog post in Markdown...
 - `title` (string): The post title
 - `date` (string): Publication date in YYYY-MM-DD format
 - `description` (string): Brief description for meta tags
+- `lang` (string): Language code (e.g., "ja" for Japanese, "en" for English)
 
 ### Optional Fields
 
@@ -111,8 +113,10 @@ Write your blog post in Markdown...
 
 1. All required fields must be present
 2. Date must be in YYYY-MM-DD format
-3. Folder date must match frontmatter date
-4. Posts with `draft: true` are skipped
+3. Language must be a supported language code (ja, en)
+4. Folder date must match frontmatter date
+5. Folder lang must match frontmatter lang
+6. Posts with `draft: true` are skipped
 
 ## Project Structure
 
@@ -123,14 +127,16 @@ blog/
 │       └── YYYY/
 │           └── MM/
 │               └── DD/
-│                   └── slug.md
+│                   └── {lang}/
+│                       └── slug.md
 ├── public/
-│   └── posts/
-│       └── YYYY/
-│           └── MM/
-│               └── DD/
-│                   └── slug/
-│                       └── index.html
+│   └── {lang}/
+│       └── posts/
+│           └── YYYY/
+│               └── MM/
+│                   └── DD/
+│                       └── slug/
+│                           └── index.html
 ├── src/
 │   ├── generator.ts    # Main generation logic
 │   ├── validator.ts    # Post validation
