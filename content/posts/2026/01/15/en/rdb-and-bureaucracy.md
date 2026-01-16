@@ -10,9 +10,6 @@ tags:
   - History
 draft: false
 ---
-# Why Tables (RDBs) Still Dominate in Complex Systems  
-― A Journey Through Human History and Database Design ―
-
 ## Introduction
 
 When designing systems, we often find ourselves questioning:  
