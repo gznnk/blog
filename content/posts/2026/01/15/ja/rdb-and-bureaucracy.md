@@ -35,8 +35,6 @@ RDBの方がしっくりくると感じる一方で、
 
 ## 1. 人類はいつから「表」で管理してきたのか
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Sumerian_accounting_tablet.jpg" alt="古代メソポタミアの粘土板に記録された会計記録（行と列の構造を持つ表形式）">
-
 人類が表を使い始めたのは、  
 Excelが生まれたからでも、コンピュータが登場したからでもありません。
 
@@ -68,8 +66,6 @@ Excelが生まれたからでも、コンピュータが登場したからでも
 ---
 
 ## 2. RDBとその他のデータベースの違い
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Database_models.svg" alt="リレーショナル、ドキュメント、グラフなど、さまざまなデータベースモデルを示す図">
 
 現代のデータベースは、大きく分けると次のようになります。
 
@@ -121,8 +117,6 @@ Excelが生まれたからでも、コンピュータが登場したからでも
 
 ## 3. なぜ「表」は複雑な世界に強いのか
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Database_normalization_1NF_2NF_3NF.png" alt="第1正規形、第2正規形、第3正規形を示すデータベース正規化の図">
-
 直感とは逆ですが、  
 **世界が複雑になるほど、表の強さが際立ちます**。
 
@@ -159,8 +153,6 @@ RDBは、
 ---
 
 ## 4. 表の歴史とRDBは同じ延長線上にある
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Double-entry_bookkeeping_example.jpg" alt="伝統的な表形式の記録管理を示す複式簿記の帳簿の例">
 
 RDBは新しい技術のように見えますが、  
 実際には、

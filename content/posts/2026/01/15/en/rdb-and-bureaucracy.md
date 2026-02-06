@@ -30,8 +30,6 @@ This article explores:
 
 ## 1. When Did Humanity Start Managing Data with Tables?
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Sumerian_accounting_tablet.jpg" alt="Ancient Sumerian clay tablet with cuneiform accounting records showing tabular data organization">
-
 Humanity didn't start using tables because of Excel or computers.
 
 Tables emerged **right after the invention of writing itself**.
@@ -59,8 +57,6 @@ This property hasn't changed in thousands of years.
 ---
 
 ## 2. How RDBs Differ from Other Databases
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Database_models.svg" alt="Diagram showing different database models including relational, document, and graph structures">
 
 Modern databases can be broadly categorized as:
 
@@ -109,8 +105,6 @@ RDBs have an exceptionally **strong ability to clarify responsibilities and rule
 
 ## 3. Why Tables Excel in Complex Worlds
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Database_normalization_1NF_2NF_3NF.png" alt="Database normalization diagram showing first, second, and third normal forms">
-
 Counterintuitively,  
 **the more complex the world becomes, the more tables shine**.
 
@@ -139,8 +133,6 @@ These relationships **become much more robust the moment they're modeled as inte
 ---
 
 ## 4. The History of Tables and RDBs Share the Same Lineage
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Double-entry_bookkeeping_example.jpg" alt="Example of double-entry bookkeeping ledger showing traditional tabular record keeping">
 
 RDBs may look like modern technology,  
 but they're actually **an extension of the table's historical lineage**:
