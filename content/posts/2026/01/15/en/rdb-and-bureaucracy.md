@@ -26,8 +26,6 @@ This article explores:
 3. Why RDBs grow stronger as complexity increases  
 4. A concise summary  
 
----
-
 ## 1. When Did Humanity Start Managing Data with Tables?
 
 Humanity didn't start using tables because of Excel or computers.
@@ -53,8 +51,6 @@ Tables allow us to record
 in a way that can be explained to third parties later.
 
 This property hasn't changed in thousands of years.
-
----
 
 ## 2. How RDBs Differ from Other Databases
 
@@ -101,8 +97,6 @@ These use cases significantly increase design and operational complexity.
 While somewhat rigid,  
 RDBs have an exceptionally **strong ability to clarify responsibilities and rules**.
 
----
-
 ## 3. Why Tables Excel in Complex Worlds
 
 Counterintuitively,  
@@ -130,8 +124,6 @@ For example, "the relationship between a person and an organization" isn't just 
 
 These relationships **become much more robust the moment they're modeled as intermediate tables**.
 
----
-
 ## 4. The History of Tables and RDBs Share the Same Lineage
 
 RDBs may look like modern technology,  
@@ -150,8 +142,6 @@ The features RDBs provide—
 - Transactions  
 
 —are simply technical formalizations of requirements humanity has felt for centuries: "this is how it must be done."
-
----
 
 ## 5. A Concise Summary
 

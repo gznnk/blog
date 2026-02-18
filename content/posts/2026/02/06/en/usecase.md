@@ -18,8 +18,6 @@ Every time I heard discussions about "Use Case Layer" or "UseCase Class" in the 
 
 Recently, I finally understood the reason why.
 
----
-
 ## Use Case Actually Has Two Meanings
 
 The cause of the confusion is simple:  
@@ -37,8 +35,6 @@ Use case diagrams in UML and use cases discussed in requirement definitions refe
 
 It is completely an **outer concept**.
 
----
-
 ### 2. Use Case in Architecture
 
 On the other hand, the "Use Case" mentioned in DDD or Clean Architecture is:
@@ -52,8 +48,6 @@ It is a **unit of processing**.
 In reality, it is closer to a **Transaction Boundary / Orchestration**.
 
 It is completely an **inner (implementation) concept**.
-
----
 
 ## Why Did They End Up with the Same Name?
 
@@ -73,8 +67,6 @@ Therefore, they effectively had to apply the name **UseCase** to "Transaction Bo
 
 I can understand the philosophy.  
 But strictly speaking as a term, I feel it's a bit of a stretch.
-
----
 
 ## Why Was I Feeling Uncomfortable?
 
@@ -98,8 +90,6 @@ So when told:
 I feel like **concepts are getting crossed**.
 
 This wasn't a misalignment of senses, but simply that **the main axis of thinking was different**.
-
----
 
 ## My Current Understanding
 
